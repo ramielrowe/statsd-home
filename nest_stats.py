@@ -41,6 +41,12 @@ if __name__ == '__main__':
     current_humidity = nest_dict['device'][args.serial]['current_humidity']
     target_humidity = nest_dict['device'][args.serial]['target_humidity']
 
+    hvac_fan_state = nest_dict['shared'][args.serial]['hvac_fan_state']
+    hvac_heater_state = nest_dict['shared'][args.serial]['hvac_heater_state']
+    hvac_ac_state = nest_dict['shared'][args.serial]['hvac_ac_state']
+    hvac_aux_state = nest_dict['shared'][args.serial]['hvac_aux_heater_state']
+    hvac_emer_heat_state = nest_dict['shared'][args.serial]['hvac_emer_heat_state']
+
     print current_temp
     guage.send('current_temp', float(current_temp))
     print target_temp
@@ -53,3 +59,13 @@ if __name__ == '__main__':
     guage.send('current_humidity', float(current_humidity))
     print target_humidity
     guage.send('target_humidity', float(target_humidity))
+    print hvac_fan_state
+    guage.send('fan_on', 1 if hvac_fan_state else 0)
+    print hvac_heater_state
+    guage.send('heat_on', 1 if hvac_heater_state else 0)
+    print hvac_ac_state
+    guage.send('ac_on', 1 if hvac_ac_state else 0)
+    print hvac_aux_state
+    guage.send('aux_on', 1 if hvac_aux_state else 0)
+    print hvac_emer_heat_state
+    guage.send('emergency_on', 1 if hvac_emer_heat_state else 0)
