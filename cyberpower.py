@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     guage = statsd.Gauge('power.ups.{}'.format(args.node_name))
 
-    ups_status = subprocess.check_output(['pwrstat', '-status'])
+    ups_status = subprocess.check_output(['/usr/sbin/pwrstat', '-status'])
 
     voltage_rating = VOLTAGE_RATING_RE.match(ups_status.split('\n')[6]).group(1)
     load_max = LOAD_MAX_RE.match(ups_status.split('\n')[7]).group(1)
