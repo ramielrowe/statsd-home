@@ -12,8 +12,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='CyberPower Statsd Pusher')
     parser.add_argument('statsd_server', type=str)
     parser.add_argument('node_name', type=str)
-    parser.add_argument('username', type=str)
-    parser.add_argument('password', type=str)
+    parser.add_argument('config_path', type=str)
     parser.add_argument('serial', type=str)
     parser.add_argument('-p', '--statsd-port', type=int, default=8125)
     parser.add_argument('-r', '--statsd-sample-rate', type=float, default=1.0)
@@ -25,8 +24,7 @@ if __name__ == '__main__':
 
     guage = statsd.Gauge('temperature.nest.{}'.format(args.node_name))
 
-    nest_stats = subprocess.check_output(['nest.py', '--user', args.username,
-                                          '--password', args.password, 'json'])
+    nest_stats = subprocess.check_output(['burrow', args.config_path])
 
     nest_dict = json.loads(nest_stats)
 
